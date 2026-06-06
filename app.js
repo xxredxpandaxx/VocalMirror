@@ -11,7 +11,6 @@ const statusPill = document.querySelector("#status-pill");
 const statusText = document.querySelector("#status-text");
 const waveform = document.querySelector("#waveform");
 const waveformContext = waveform.getContext("2d");
-const focusLabel = document.querySelector("#focus-label");
 
 const state = {
   audioContext: null,
@@ -316,14 +315,6 @@ volumeSlider.addEventListener("input", (event) => {
 
 document.querySelectorAll("[data-delay]").forEach((button) => {
   button.addEventListener("click", () => setDelay(button.dataset.delay));
-});
-
-document.querySelectorAll("[data-focus]").forEach((button) => {
-  button.addEventListener("click", () => {
-    document.querySelectorAll("[data-focus]").forEach((item) => item.classList.remove("active"));
-    button.classList.add("active");
-    focusLabel.textContent = button.dataset.focus;
-  });
 });
 
 window.addEventListener("resize", () => {

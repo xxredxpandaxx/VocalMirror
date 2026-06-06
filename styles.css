@@ -55,8 +55,7 @@ button {
 
 .studio-header,
 .transport,
-.control-surface,
-.practice-panel {
+.control-surface {
   background: var(--panel);
   border: 1px solid var(--line);
   box-shadow: var(--shadow);
@@ -155,8 +154,7 @@ canvas {
   pointer-events: none;
 }
 
-.stage-overlay > div,
-.practice-panel > div:first-child {
+.stage-overlay > div {
   min-width: 128px;
   padding: 13px 15px;
   border: 1px solid var(--line);
@@ -164,8 +162,7 @@ canvas {
   background: rgba(9, 11, 14, 0.62);
 }
 
-.stage-overlay strong,
-.practice-panel strong {
+.stage-overlay strong {
   display: block;
   margin-top: 3px;
   font-size: clamp(1.35rem, 4vw, 2.6rem);
@@ -188,8 +185,7 @@ canvas {
 
 .primary-action,
 .ghost-action,
-.presets button,
-.focus-tabs button {
+.presets button {
   min-height: 46px;
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -207,8 +203,7 @@ canvas {
 }
 
 .ghost-action,
-.presets button,
-.focus-tabs button {
+.presets button {
   background: rgba(255, 255, 255, 0.05);
 }
 
@@ -236,12 +231,18 @@ input:focus-visible {
   gap: 16px;
 }
 
+.control-row > * {
+  min-width: 0;
+}
+
 .control-title {
   display: block;
   font-weight: 780;
 }
 
 input[type="range"] {
+  display: block;
+  min-width: 0;
   width: 100%;
   accent-color: var(--teal);
 }
@@ -263,24 +264,9 @@ input[type="range"] {
   clip: rect(0 0 0 0);
 }
 
-.presets button.active,
-.focus-tabs button.active {
+.presets button.active {
   border-color: rgba(77, 215, 199, 0.78);
   background: rgba(77, 215, 199, 0.14);
-}
-
-.practice-panel {
-  display: grid;
-  grid-template-columns: minmax(150px, 220px) 1fr;
-  gap: 12px;
-  align-items: stretch;
-  padding: 12px;
-}
-
-.focus-tabs {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
 }
 
 @media (max-width: 760px) {
@@ -290,8 +276,7 @@ input[type="range"] {
   }
 
   .studio-header,
-  .control-row,
-  .practice-panel {
+  .control-row {
     grid-template-columns: 1fr;
   }
 
@@ -304,21 +289,43 @@ input[type="range"] {
   }
 
   .transport,
-  .presets,
-  .focus-tabs {
+  .presets {
     grid-template-columns: 1fr 1fr;
   }
 
   .stage-overlay {
-    grid-template-columns: 1fr;
+    inset: auto 10px 10px 10px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .stage-overlay > div {
+    min-width: 0;
+    padding: 10px;
+  }
+
+  .stage-overlay strong {
+    font-size: clamp(1rem, 5vw, 1.35rem);
+  }
+
+  .pitch-note {
+    margin-top: 4px;
+    font-size: 0.9rem;
   }
 }
 
 @media (max-width: 420px) {
   .transport,
-  .presets,
-  .focus-tabs {
+  .presets {
     grid-template-columns: 1fr;
+  }
+
+  .control-surface {
+    gap: 14px;
+  }
+
+  .control-row {
+    gap: 10px;
   }
 
 }
