@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Voice Delay Studio</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="studio" aria-labelledby="app-title">
+        <div class="studio-header">
+          <div>
+            <p class="eyebrow">Trans voice training</p>
+            <h1 id="app-title">Voice Delay Studio</h1>
+          </div>
+          <div class="status-pill" id="status-pill">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span id="status-text">Idle</span>
+          </div>
+        </div>
+
+        <div class="stage" aria-label="Live voice monitor">
+          <canvas id="waveform" width="960" height="320"></canvas>
+          <div class="stage-overlay">
+            <div>
+              <span class="metric-label">Delay</span>
+              <strong id="delay-readout">350 ms</strong>
+            </div>
+            <div>
+              <span class="metric-label">Input</span>
+              <strong id="level-readout">0%</strong>
+            </div>
+            <div>
+              <span class="metric-label">Pitch</span>
+              <strong id="pitch-readout">-- Hz</strong>
+              <span class="pitch-note" id="pitch-note">--</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="transport">
+          <button class="primary-action" id="start-button" type="button">
+            <span id="start-label">Start monitor</span>
+          </button>
+          <button class="ghost-action" id="mute-button" type="button" disabled>
+            Output on
+          </button>
+        </div>
+
+        <section class="control-surface" aria-label="Audio controls">
+          <label class="control-row" for="delay-slider">
+            <span>
+              <span class="control-title">Playback delay</span>
+              <span class="control-subtitle">0-3000 ms</span>
+            </span>
+            <input id="delay-slider" type="range" min="0" max="3000" step="10" value="350">
+          </label>
+
+          <label class="control-row" for="volume-slider">
+            <span>
+              <span class="control-title">Speaker level</span>
+              <span class="control-subtitle">Practice volume</span>
+            </span>
+            <input id="volume-slider" type="range" min="0" max="100" step="1" value="72">
+          </label>
+
+          <fieldset class="presets" aria-label="Delay presets">
+            <legend>Delay presets</legend>
+            <button type="button" data-delay="80">Shadow</button>
+            <button type="button" data-delay="350" class="active">Resonance</button>
+            <button type="button" data-delay="800">Phrases</button>
+            <button type="button" data-delay="1400">Replay</button>
+          </fieldset>
+        </section>
+
+        <section class="practice-panel" aria-label="Practice focus">
+          <div>
+            <span class="metric-label">Focus</span>
+            <strong id="focus-label">Resonance</strong>
+          </div>
+          <div class="focus-tabs" role="tablist" aria-label="Voice focus">
+            <button type="button" class="active" data-focus="Resonance">Resonance</button>
+            <button type="button" data-focus="Brightness">Brightness</button>
+            <button type="button" data-focus="Cadence">Cadence</button>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
