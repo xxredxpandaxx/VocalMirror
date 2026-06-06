@@ -146,6 +146,10 @@ async function startMonitoring() {
     delayNode.connect(outputGain);
     outputGain.connect(audioContext.destination);
 
+    if (state.animationFrame) {
+      cancelAnimationFrame(state.animationFrame);
+    }
+
     Object.assign(state, {
       audioContext,
       analyser,
@@ -155,6 +159,7 @@ async function startMonitoring() {
       source,
       running: true,
       muted: false,
+      animationFrame: null,
       lastPitch: null,
       pitchFrame: 0
     });
@@ -214,7 +219,7 @@ function drawBackground(width, height) {
   waveformContext.fillRect(0, 0, width, height);
 }
 
-function drawIdle() {
+function drawIdleFrame() {
   const rect = waveform.getBoundingClientRect();
   const scale = window.devicePixelRatio || 1;
   waveform.width = Math.max(1, Math.floor(rect.width * scale));
@@ -240,9 +245,26 @@ function drawIdle() {
   levelReadout.textContent = "0%";
   pitchReadout.textContent = "-- Hz";
   pitchNote.textContent = "--";
+}
+
+function drawIdle() {
+  if (state.running) return;
+  if (state.animationFrame) {
+    cancelAnimationFrame(state.animationFrame);
+  }
+
+  drawIdleFrame();
+  state.animationFrame = requestAnimationFrame(drawIdleLoop);
+}
+
+function drawIdleLoop() {
+  state.animationFrame = null;
+  if (state.running) return;
+
+  drawIdleFrame();
 
   if (!state.running) {
-    state.animationFrame = requestAnimationFrame(drawIdle);
+    state.animationFrame = requestAnimationFrame(drawIdleLoop);
   }
 }
 
